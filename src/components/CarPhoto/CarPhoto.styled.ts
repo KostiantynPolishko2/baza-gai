@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { PhotoImg, Display } from './General.styled';
 
 const _margin = 15;
 const _padding = 5;
@@ -9,16 +10,6 @@ interface Size {
     _width?: number,
     _height?: number,
     _border?: string,
-}
-
-interface Photo {
-    _path?: string,  
-}
-
-interface DisplayContent {
-    _direction?: string;
-    _justify?: string;
-    _align?: string;
 }
 
 const main__br_radius = css`
@@ -38,25 +29,12 @@ export const CarPhotoWrapper = styled.div<Size>`
     ${props => props._border === 'main'? main__br_radius : next__br_radius}
 `;
 
-const PhotoImg = styled.img<Photo>`
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-`;
-
 export const CarPhotoImg = styled(PhotoImg).attrs({
     alt: 'cars photo',
 })`
     width: 100%;
     height: 100%;
     border-radius: inherit;
-`;
-
-export const Display = styled.div<DisplayContent>`
-    display: flex;
-    flex-direction: ${props => props._direction || 'row'};
-    justify-content: ${props => props._justify || 'space-between' };
-    align-items: ${props => props._align || 'center'};
 `;
 
 export const CarPhotoInner = styled(Display)`
