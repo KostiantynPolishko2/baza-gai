@@ -9,7 +9,14 @@ const CarPhoto: FC<CarPhotoProps> = () => (
    <card.CarPhotoImg src={require('./img/car_icon.jpg')}/>
    <card.CarPhotoInner _direction='column'>
       <card.ContentTop>
-
+         <plate.Number>
+            <plate.NumberFlag _direction='column'>
+               <plate.FlagIcon>
+                  <div></div>
+                  <div></div>
+               </plate.FlagIcon>
+            </plate.NumberFlag>
+         </plate.Number>
       </card.ContentTop>
       <card.ContentBottom _direction='column'>
 
