@@ -19,7 +19,7 @@ const CarPhoto: FC<CarPhotoProps> = () => (
          </plate.Number>
       </card.ContentTop>
       <card.ContentBottom _direction='column'>
-
+      <p>Hello world!</p>
       </card.ContentBottom>
    </card.CarPhotoInner>
  </card.CarPhotoWrapper>
