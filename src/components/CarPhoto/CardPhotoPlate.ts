@@ -6,12 +6,13 @@ export const Number = styled(Display)`
     height: 35px;
     border: 2px solid #484848;
     border-radius: 5px;
+    height: auto;
 `;
 
 export const NumberFlag = styled(Display)`
     flex-grow: 1;
     width: 30px;
-    padding: 4px 0px;
+    padding: 5px 0px;
     background-color: #2860ab;
 `;
 
@@ -26,5 +27,26 @@ export const FlagIcon = styled.div`
     & > div:last-child{
         height: 6px;
         background-color: #f9dd16;
+    }
+`;
+
+export const FlagCode = styled.div`
+    height: 15px;
+    text-align: center;
+    & > span {
+        color: white;
+        font-size: 15px;
+        font-weight: 400;
+    }
+`;
+
+export const NumberText = styled.div`
+    height: calc(35px + 5px);
+    background-color: white;
+    text-align: center;
+    padding: 0px 8px;
+    & > span {
+        color: #212529;
+        line-height: calc(35px + 5px);
     }
 `;
