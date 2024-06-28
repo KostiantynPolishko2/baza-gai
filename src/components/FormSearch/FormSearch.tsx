@@ -1,13 +1,11 @@
 import React, { FC, useState } from 'react';
 import './FormSearch.css';
 import * as form from './FormSearch.styled';
+import { isDigits, spaceLetterDigits } from './Functions';
 import { get } from 'http';
 
 interface FormSearchProps {}
 
-const isDigits = (digits: string): boolean => {
-   return false;
-}
 
 const FormSearch: FC<FormSearchProps> = () => {
 
@@ -15,16 +13,14 @@ const FormSearch: FC<FormSearchProps> = () => {
 
    const getDigits = (e: React.FormEvent<HTMLElement>):void => {
 
-      let _digits: string = (e.currentTarget.previousElementSibling as HTMLInputElement).value;
+      let _digits: string = (e.currentTarget.previousElementSibling as HTMLInputElement).value.replace(/\s/g, '');
       (e.currentTarget.previousElementSibling as HTMLInputElement).value = '';
       _digits = _digits.replace(/[a-z]/gi, x => x.toUpperCase());
 
-      if(!isDigits(_digits)){
-         setDigits(_digits);
-         console.log('run axios request', _digits)
+      if(isDigits(_digits)){
+         (e.currentTarget.previousElementSibling as HTMLInputElement).value = spaceLetterDigits(_digits);
       }
       else {
-         setDigits('unccorect');
          console.log('throw error', _digits);
       }
    }
