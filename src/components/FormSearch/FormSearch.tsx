@@ -1,29 +1,13 @@
 import React, { FC, useState } from 'react';
 import './FormSearch.css';
 import * as form from './FormSearch.styled';
-import { isDigits, spaceLetterDigits } from './Functions';
-import { get } from 'http';
+import { getDigits} from './Functions';
 
 interface FormSearchProps {}
-
 
 const FormSearch: FC<FormSearchProps> = () => {
 
    const [digits, setDigits] = useState('');
-
-   const getDigits = (e: React.FormEvent<HTMLElement>):void => {
-
-      let _digits: string = (e.currentTarget.previousElementSibling as HTMLInputElement).value.replace(/\s/g, '');
-      (e.currentTarget.previousElementSibling as HTMLInputElement).value = '';
-      _digits = _digits.replace(/[a-z]/gi, x => x.toUpperCase());
-
-      if(isDigits(_digits)){
-         (e.currentTarget.previousElementSibling as HTMLInputElement).value = spaceLetterDigits(_digits);
-      }
-      else {
-         console.log('throw error', _digits);
-      }
-   }
 
    return (
       <form.FormSearchWrapper>
