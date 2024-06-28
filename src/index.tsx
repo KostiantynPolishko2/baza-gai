@@ -9,7 +9,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <FormSearch/>
+    <body>
+      <FormSearch/>
+    </body>
   </React.StrictMode>
 );
 
