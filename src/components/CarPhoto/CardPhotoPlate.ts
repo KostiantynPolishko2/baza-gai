@@ -60,3 +60,10 @@ export const DateRegistr = styled.div`
     }
 `;
 
+export const DataMark = styled.div`
+    &{
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: white;
+    }
+`;

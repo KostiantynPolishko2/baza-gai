@@ -51,5 +51,5 @@ export const ContentTop = styled(Display)`
 `;
 
 export const ContentBottom = styled(Display)`
-    height: 100%;
+    width: 100%;
 `;

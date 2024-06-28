@@ -28,7 +28,13 @@ const CarPhoto: FC<CarPhotoProps> = () => (
             <span>28.02.2024</span>
          </plate.DateRegistr>
       </card.ContentTop>
-      <card.ContentBottom _direction='column'>
+      <card.ContentBottom _direction='column' _justify='end' _align='start'>
+         <plate.DataMark>
+            <span>2017</span>
+         </plate.DataMark>
+         <plate.DataMark>
+            <span>BMW X3</span>
+         </plate.DataMark>
       </card.ContentBottom>
    </card.CarPhotoInner>
  </card.CarPhotoWrapper>
