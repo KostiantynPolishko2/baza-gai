@@ -9,12 +9,7 @@ const spaceLetterDigits = (digits: string ): string => {
     return digits.slice(0, 2) + ' ' + digits.slice(2, 6) + ' ' + digits.slice(6, 8);
 }
 
-interface CarNumber {
-    _digits: string,
-    _state: boolean,
-}
-
-export const getDigits = (e?: React.FormEvent<HTMLElement>): CarNumber => {
+export const getDigits = (e?: React.FormEvent<HTMLElement>): string => {
 
     let _digits: string = (e?.currentTarget.previousElementSibling as HTMLInputElement).value.replace(/\s/g, '');
     (e?.currentTarget.previousElementSibling as HTMLInputElement).value = '';
@@ -22,9 +17,9 @@ export const getDigits = (e?: React.FormEvent<HTMLElement>): CarNumber => {
 
     if(isDigits(_digits)){
        (e?.currentTarget.previousElementSibling as HTMLInputElement).value = spaceLetterDigits(_digits);
-       return {_digits, _state:true};
+       return _digits;
     }
     else {
-       return {_digits:'', _state:false};
+       return 'none';
     }
- }
+}
