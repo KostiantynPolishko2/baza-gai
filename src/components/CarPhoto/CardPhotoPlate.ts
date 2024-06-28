@@ -50,3 +50,13 @@ export const NumberText = styled.div`
         line-height: calc(35px + 5px);
     }
 `;
+
+export const DateRegistr = styled.div`
+    padding: 5px;
+    & > span {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: white;
+    }
+`;
+

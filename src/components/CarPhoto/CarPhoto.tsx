@@ -24,6 +24,9 @@ const CarPhoto: FC<CarPhotoProps> = () => (
                <span>AE 4000 IT</span>
             </plate.NumberText>
          </plate.Number>
+         <plate.DateRegistr>
+            <span>28.02.2024</span>
+         </plate.DateRegistr>
       </card.ContentTop>
       <card.ContentBottom _direction='column'>
       </card.ContentBottom>
