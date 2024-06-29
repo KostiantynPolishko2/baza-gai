@@ -9,3 +9,11 @@
     max-width: 50%;
     min-width: fit-content;
 }
+
+div.btns > button{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: yellow;
+}

@@ -7,9 +7,12 @@ import * as form from './FormSearch.styled';
 import { getDigits } from './Functions';
 
 
-interface FormSearchProps {}
+interface FormSearchProps {
+   _handleIncrease: (value: number) => void,
+   _handleDecrease: (value: number) => void,
+}
 
-const FormSearch: FC<FormSearchProps> = () => {
+const FormSearch: FC<FormSearchProps> = (props) => {
 
    const [carNumber, setCarNumber] = useState('none');
    const [carsData, setCarData] = useState([new CarData()]);
@@ -58,7 +61,11 @@ const FormSearch: FC<FormSearchProps> = () => {
            <h3 style={{fontSize: 1.25 + 'rem'}}>Проверка авто по номеру и VIN</h3>
            <form.Input>
               <form.InputSearch  className='form-search'/>
-              <form.InputBtn onClick={e => setCarNumber(getDigits(e))}>Поиск</form.InputBtn>             
+              <form.InputBtn onClick={e => setCarNumber(getDigits(e))}>Поиск</form.InputBtn>
+               <div className='btns'>
+                  <button type='button' name='increase' onClick={(e) => props._handleIncrease(2)}>Increment</button>            
+                  <button type='button' name='decrease' onClick={(e) => props._handleDecrease(3)}>Decrement</button>  
+               </div>          
            </form.Input>
            <p>CarData</p>
            <ul>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import 'the-new-css-reset';
 import * as card from './CarPhoto.styled';
-import * as plate from './CardPhotoPlate';
+import * as plate from './CardPhotoPlate.styled';
 import { StringDecoder } from 'string_decoder';
 
 interface IdPhotoProps {
@@ -20,6 +20,7 @@ interface CarPhotoProps extends SizePhotoProps, IdPhotoProps {
    _model?: string,
    _model_year?: number | string,
    _registered_at?: string,
+   _value?: number,
 }
 
 const getUrlPhoto = (url_photo: string | undefined) => {
@@ -59,6 +60,7 @@ const CarPhoto: FC<CarPhotoProps> = (props) => {
                  <span>{props._registered_at || 'dd.mm.yyyy'}</span>
               </plate.DateRegistr>
            </card.ContentTop>
+           <p style={{color: 'red'}}>Test value&nbsp;{props._value}</p>
            <card.ContentBottom _direction='column' _justify='end' _align='start'>
               <plate.DataMark>
                  <span>{props._model_year || 'x-yyyy'}</span>
@@ -85,6 +87,7 @@ CarPhoto.defaultProps  = {
    _model: 'x-model',
    _model_year: 'x-yyyy',
    _registered_at: 'dd.mm.yyyy',
+   _value: 0,
 }
 
 export default CarPhoto;
