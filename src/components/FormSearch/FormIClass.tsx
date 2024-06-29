@@ -23,12 +23,12 @@ export class CarData {
     model: string;
  
     constructor(car?: ICar, carData?: ICarData){
-       this.digits = car?.digits?? 'none';
-       this.photo_url = car?.photo_url?? 'none';
+       this.digits = car?.digits?? '';
+       this.photo_url = car?.photo_url?? '';
  
-       this.registered_at = carData?.registered_at?? 'none';
-       this.model_year = carData?.model_year?? 'none';
-       this.model = `${carData?.vendor?? 'none'} ${carData?.model?? ''}`
+       this.registered_at = carData?.registered_at?? '';
+       this.model_year = carData?.model_year?? '';
+       this.model = `${carData?.vendor?? ''} ${carData?.model?? ''}`
     }
 }
  
