@@ -1,12 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import 'the-new-css-reset';
 import * as card from './CarPhoto.styled';
-import * as plate from './CardPhotoPlate';
-import { StringDecoder } from 'string_decoder';
+import * as plate from './CardPhotoPlate.styled';
+import { CarError, CarData } from '../FormSearch/FormIClass';
 
 interface IdPhotoProps {
    _id: number | string,
-   _url_photo?: string,
 }
 
 interface SizePhotoProps {
@@ -14,31 +13,35 @@ interface SizePhotoProps {
    _height_photo?: number,
 }
 
-interface CarPhotoProps extends SizePhotoProps, IdPhotoProps {
-   _digits?: string,
-   _vendor?: string,
-   _model?: string,
-   _model_year?: number | string,
-   _registered_at?: string,
+interface ErrorProps {
+   _error: CarError,
 }
 
-const getUrlPhoto = (url_photo: string | undefined) => {
+interface CarPhotoProps extends SizePhotoProps, IdPhotoProps, ErrorProps {
+   _car: CarData,
+}
+
+const getUrlPhoto = (status: number):string => {
    
-   if (url_photo === ''){
-      return './img/car_come_soon.jpg';
-   }
-   else if (url_photo === ('error404')){
+   if (status === 404){
       return './img/error404.jpg';
    }
 
-   return url_photo;
+   return './img/car_icon.jpg';
 }
 
 const CarPhoto: FC<CarPhotoProps> = (props) => {
 
+   const getError = (flag: boolean):ReactElement<HTMLElement> => {
+      if(flag){
+         return <plate.DataError><p>{props._error.description}</p></plate.DataError>;
+      }
+      return <></>
+   }
+
    return (
       <card.CarPhotoWrapper _width={props._width_photo} _height={props._height_photo} _border='main'>
-        <card.CarPhotoImg src={require(`${getUrlPhoto(props._url_photo)}`)}/>
+        <card.CarPhotoImg src={props._car.photo_url != ''? props._car.photo_url: require(`${getUrlPhoto(props._error.status)}`)}/>
         <card.CarPhotoInner _direction='column'>
            <card.ContentTop>
               <plate.Number>
@@ -52,19 +55,20 @@ const CarPhoto: FC<CarPhotoProps> = (props) => {
                     </plate.FlagCode>
                  </plate.NumberFlag>
                  <plate.NumberText>
-                    <span>{props._digits || 'AA DDDD AA'}</span>
+                    <span>{props._car.digits || 'AA DDDD AA'}</span>
                  </plate.NumberText>
               </plate.Number>
               <plate.DateRegistr>
-                 <span>{props._registered_at || 'dd.mm.yyyy'}</span>
+                 <span>{props._car.registered_at || 'dd.mm.yyyy'}</span>
               </plate.DateRegistr>
            </card.ContentTop>
+               {getError(props._error.flag)}
            <card.ContentBottom _direction='column' _justify='end' _align='start'>
               <plate.DataMark>
-                 <span>{props._model_year || 'x-yyyy'}</span>
+                 <span>{props._car.model_year || 'x-yyyy'}</span>
               </plate.DataMark>
               <plate.DataMark>
-                 <span>{props._vendor || 'x-vendor'}&nbsp;{props._model || 'x-model'}</span>
+                 <span>{props._car.model || 'x-model'}</span>
               </plate.DataMark>
            </card.ContentBottom>
         </card.CarPhotoInner>
@@ -77,14 +81,8 @@ const carIcon = './img/car_icon.jpg';
 
 CarPhoto.defaultProps  = {
    _id: 'main',
-   _url_photo: carIcon,
    _width_photo: 500,
    _height_photo: 375,
-   _digits: 'AA DDDD AA',
-   _vendor: 'x-vendor',
-   _model: 'x-model',
-   _model_year: 'x-yyyy',
-   _registered_at: 'dd.mm.yyyy',
 }
 
 export default CarPhoto;

@@ -1,0 +1,19 @@
+.form-search{
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    max-width: 50%;
+    min-width: fit-content;
+}
+
+div.btns > button{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: yellow;
+}
