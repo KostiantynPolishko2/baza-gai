@@ -17,7 +17,12 @@ interface ICarData {
    registered_at: string,
 }
 
-class Car {
+interface ICarOperations {
+   [index: number]: ICarData,
+   length: number,
+}
+
+class CarData {
    digits: string;
    photo_url: string;
    registered_at: string;
@@ -25,12 +30,39 @@ class Car {
    model: string;
 
    constructor(car?: ICar, carData?: ICarData){
-      this.digits = car?.digits?? 'XX DDDD XX';
-      this.photo_url = car?.photo_url?? './img/car_icon.jpg';
+      this.digits = car?.digits?? 'none';
+      this.photo_url = car?.photo_url?? 'none';
 
-      this.registered_at = carData?.registered_at?? 'dd.mm.yyyy';
-      this.model_year = carData?.model_year?? 'yyyy';
-      this.model = `${carData?.vendor?? 'vendor'}_${carData?.model?? 'x-model'}`
+      this.registered_at = carData?.registered_at?? 'none';
+      this.model_year = carData?.model_year?? 'none';
+      this.model = `${carData?.vendor?? 'none'} ${carData?.model?? ''}`
+   }
+}
+
+interface IErrorStatus {
+   status: number,
+}
+
+interface IErrorData {
+   message: string,
+   code: string,
+   name: string,
+   response: IErrorStatus,
+}
+
+class CarError {
+   readonly flag: boolean;
+   status: number;
+   readonly description: string = 'none';
+
+   constructor(flag?: boolean, error?: IErrorData) {
+      this.flag = flag?? false;
+      this.status = error?.response.status?? 0;
+      this.description = this.setDescription(error?.name?? 'none', error?.code?? 'none');
+   }
+
+   private setDescription(name: string, code: string): string {
+      return `${code} ${this.status}`;
    }
 }
 
@@ -39,7 +71,8 @@ interface FormSearchProps {}
 const FormSearch: FC<FormSearchProps> = () => {
 
    const [carNumber, setCarNumber] = useState('none');
-   const [carData, setCarData] = useState(new Car());
+   const [carsData, setCarData] = useState([new CarData()]);
+   const [carError, setCarError] = useState(new CarError());
    
    const key = '00cbd51c5f962dfa3b445a42e63d0160';
    const client = axios.create({
@@ -52,13 +85,29 @@ const FormSearch: FC<FormSearchProps> = () => {
    useEffect(() => {
       if(carNumber !== 'none'){
          client.get(carNumber).
-         then(response => { 
-            console.log('json', response.data);
+         then((response) => { 
+
             let car: ICar = response.data;
-            setCarData(new Car(car, response.data['operations']['0']));
+            let operations: ICarOperations = response.data['operations'];
+
+            let cars = [new CarData(car, operations[0])]
+            for(let i = 1; i != operations.length; i++){
+               cars.push(new CarData(car, operations[i]))
+            }
+            setCarData(cars);
+            setCarError(new CarError());
          }).
 
-         catch(error => { console.log(error)} )
+         catch((error) => {
+            console.log(error);
+            setCarError(new CarError(true, error));
+            setCarData([new CarData()]);
+         } )
+      }
+      else {
+         console.log('else')
+         setCarData([new CarData()]);
+         setCarError(new CarError());
       }
    }, [carNumber])
 
@@ -72,11 +121,12 @@ const FormSearch: FC<FormSearchProps> = () => {
            </form.Input>
            <p>CarData</p>
            <ul>
-               <li>{carData.digits}</li>
-               <li>{carData.model}</li>
-               <li>{carData.model_year}</li>
-               <li>{carData.registered_at}</li>
+               <li>{carsData[0].digits}</li>
+               <li>{carsData[0].model}</li>
+               <li>{carsData[0].model_year}</li>
+               <li>{carsData[0].registered_at}</li>
            </ul>
+           <p style={{color: 'red'}}>{carError.flag? carError.description : ''}</p>
          </div>
       </form.FormSearchWrapper>
      );
