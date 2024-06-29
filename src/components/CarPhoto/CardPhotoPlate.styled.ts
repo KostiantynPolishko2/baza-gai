@@ -67,3 +67,17 @@ export const DataMark = styled.div`
         color: white;
     }
 `;
+
+export const DataError = styled.div`
+    width: 90%;
+    background-color: rgb(255, 255, 0, 0.5);
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    & > p {
+        color: red;
+        font-size: 20px;
+        font-weight: 500;
+        text-shadow: 2px 2px 3px black;
+    }
+`;

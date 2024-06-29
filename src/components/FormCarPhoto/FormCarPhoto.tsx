@@ -9,13 +9,6 @@ import CarPhoto from '../CarPhoto/CarPhoto';
 interface FormCarPhotoProps {}
 
 const FormCarPhoto: FC<FormCarPhotoProps> = () => {
-   const [value, setValue] = useState(10);
-
-   const handleIncrease = (value: number) => {
-      setValue(currentValue => {
-         return currentValue + value;
-      })
-   }
 
    const [carNumber, setCarNumber] = useState('none');
    const [carsData, setCarData] = useState([new CarData()]);
@@ -59,8 +52,12 @@ const FormCarPhoto: FC<FormCarPhotoProps> = () => {
 
    return (
       <FormCarPhotoWrapper>
-         <FormSearch _handleIncrease={handleIncrease} _handleCarNumber={setCarNumber}/>
-         <CarPhoto _id={'main'} _url_photo={carsData[0].photo_url} _value={value} _digits={carsData[0].digits} _registered_at={carsData[0].registered_at} _model_year={carsData[0].model_year} _model={carsData[0].model}/>
+         <FormSearch _handleCarNumber={setCarNumber}/>
+         <CarPhoto 
+         _id={'main'}
+         _flag={carError.flag} _description={carError.description} _status={carError.status}
+         _url_photo={carsData[0].photo_url} _digits={carsData[0].digits} _registered_at={carsData[0].registered_at} _model_year={carsData[0].model_year} _model={carsData[0].model
+         }/>
       </FormCarPhotoWrapper>
    );
 }

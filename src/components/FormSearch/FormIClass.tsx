@@ -51,10 +51,10 @@ export class CarError {
     constructor(flag?: boolean, error?: IErrorData) {
        this.flag = flag?? false;
        this.status = error?.response.status?? 0;
-       this.description = this.setDescription(error?.name?? 'none', error?.code?? 'none');
+       this.description = this.setDescription(error?.code?? 'none');
     }
  
-    private setDescription(name: string, code: string): string {
+    private setDescription(code: string): string {
        return `${code} ${this.status}`;
     }
 }

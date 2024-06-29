@@ -5,7 +5,6 @@ import { getDigits } from './Functions';
 
 
 interface FormSearchProps {
-   _handleIncrease: (value: number) => void,
    _handleCarNumber: (digits: string) => void,
 }
 

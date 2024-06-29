@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import 'the-new-css-reset';
 import * as card from './CarPhoto.styled';
 import * as plate from './CardPhotoPlate.styled';
+import { error } from 'console';
 
 interface IdPhotoProps {
    _id: number | string,
@@ -13,20 +14,22 @@ interface SizePhotoProps {
    _height_photo?: number,
 }
 
-interface CarPhotoProps extends SizePhotoProps, IdPhotoProps {
+interface ErrorProps {
+   _flag: boolean,
+   _description: string,
+   _status: number,
+}
+
+interface CarPhotoProps extends SizePhotoProps, IdPhotoProps, ErrorProps {
    _digits?: string,
    _model?: string,
    _model_year?: number | string,
    _registered_at?: string,
-   _value?: number,
 }
 
-const getUrlPhoto = (url_photo: string | undefined) => {
+const getUrlPhoto = (status: number):string => {
    
-   if (url_photo === 'soon'){
-      return './img/car_come_soon.jpg';
-   }
-   else if (url_photo === ('error404')){
+   if (status === 404){
       return './img/error404.jpg';
    }
 
@@ -35,9 +38,16 @@ const getUrlPhoto = (url_photo: string | undefined) => {
 
 const CarPhoto: FC<CarPhotoProps> = (props) => {
 
+   const getError = (flag: boolean):ReactElement<HTMLElement> => {
+      if(flag){
+         return <plate.DataError><p>{props._description}</p></plate.DataError>;
+      }
+      return <></>
+   }
+
    return (
       <card.CarPhotoWrapper _width={props._width_photo} _height={props._height_photo} _border='main'>
-        <card.CarPhotoImg src={props._url_photo != ''? props._url_photo : require(`${getUrlPhoto(props._url_photo)}`)}/>
+        <card.CarPhotoImg src={props._url_photo != ''? props._url_photo : require(`${getUrlPhoto(props._status)}`)}/>
         <card.CarPhotoInner _direction='column'>
            <card.ContentTop>
               <plate.Number>
@@ -58,7 +68,7 @@ const CarPhoto: FC<CarPhotoProps> = (props) => {
                  <span>{props._registered_at || 'dd.mm.yyyy'}</span>
               </plate.DateRegistr>
            </card.ContentTop>
-           {/* <p style={{color: 'red'}}>Test value&nbsp;{props._value}</p> */}
+               {getError(props._flag)}
            <card.ContentBottom _direction='column' _justify='end' _align='start'>
               <plate.DataMark>
                  <span>{props._model_year || 'x-yyyy'}</span>
@@ -84,7 +94,6 @@ CarPhoto.defaultProps  = {
    _model: 'x-model',
    _model_year: 'x-yyyy',
    _registered_at: 'dd.mm.yyyy',
-   _value: 0,
 }
 
 export default CarPhoto;
