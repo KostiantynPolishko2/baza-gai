@@ -55,9 +55,10 @@ const FormCarPhoto: FC<FormCarPhotoProps> = () => {
          <FormSearch _handleCarNumber={setCarNumber}/>
          <CarPhoto 
          _id={'main'}
-         _flag={carError.flag} _description={carError.description} _status={carError.status}
-         _url_photo={carsData[0].photo_url} _digits={carsData[0].digits} _registered_at={carsData[0].registered_at} _model_year={carsData[0].model_year} _model={carsData[0].model
-         }/>
+         _width_photo={500} _height_photo={375}
+         _car={carsData[0]}
+         _error={carError}
+      />
       </FormCarPhotoWrapper>
    );
 }
